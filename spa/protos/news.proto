@@ -1,0 +1,76 @@
+syntax = "proto3";
+
+package news;
+
+option go_package = ".";
+
+service NewsService {
+  rpc GetNews(GetNewsRequest) returns (GetNewsResponse);
+  rpc CreateNews(CreateNewsRequest) returns (CreateNewsResponse);
+  rpc UpdateNews(UpdateNewsRequest) returns (UpdateNewsResponse);
+  rpc DeleteNews(DeleteNewsRequest) returns (DeleteNewsResponse);
+  rpc ListNews(ListNewsRequest) returns (ListNewsResponse);
+  rpc SendNewsToUsers(SendNewsToUsersRequest) returns (SendNewsToUsersResponse);
+}
+
+message GetNewsRequest {
+  string news_id = 1;
+}
+
+message GetNewsResponse {
+  News news = 1;
+}
+
+message CreateNewsRequest {
+  string title = 1;
+  string content = 2;
+}
+
+message CreateNewsResponse {
+  string news_id = 1;
+}
+
+message UpdateNewsRequest {
+  string news_id = 1;
+  string title = 2;
+  string content = 3;
+}
+
+message UpdateNewsResponse {
+  News news = 1;
+}
+
+message DeleteNewsRequest {
+  string news_id = 1;
+}
+
+message DeleteNewsResponse {
+  bool success = 1;
+}
+
+message ListNewsRequest {
+  string filter = 1;
+  string sort = 2;
+  int32 page = 3;
+  int32 page_size = 4;
+}
+
+message ListNewsResponse {
+  repeated News news_list = 1;
+  int32 total_pages = 2;
+  int32 current_page = 3;
+}
+
+message SendNewsToUsersRequest {
+  string news_id = 1;
+}
+
+message SendNewsToUsersResponse {
+  bool success = 1;
+}
+
+message News {
+  string news_id = 1;
+  string title = 2;
+  string content = 3;
+}

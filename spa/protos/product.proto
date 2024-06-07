@@ -1,0 +1,71 @@
+syntax = "proto3";
+
+package product;
+
+option go_package = ".";
+
+service ProductService {
+  rpc GetBooking(GetBookingRequest) returns (GetBookingResponse);
+  rpc CreateBooking(CreateBookingRequest) returns (CreateBookingResponse);
+  rpc UpdateBooking(UpdateBookingRequest) returns (UpdateBookingResponse);
+  rpc DeleteBooking(DeleteBookingRequest) returns (DeleteBookingResponse);
+  rpc ListBookings(ListBookingsRequest) returns (ListBookingsResponse);
+}
+
+message GetBookingRequest {
+  string booking_id = 1;
+}
+
+message GetBookingResponse {
+  Booking booking = 1;
+}
+
+message CreateBookingRequest {
+  string user_id = 1;
+  string spa_service = 2;
+  string booking_time = 3;
+}
+
+message CreateBookingResponse {
+  string booking_id = 1;
+}
+
+message UpdateBookingRequest {
+  string booking_id = 1;
+  string user_id = 2;
+  string spa_service = 3;
+  string booking_time = 4;
+}
+
+message UpdateBookingResponse {
+  Booking booking = 1;
+}
+
+message DeleteBookingRequest {
+  string booking_id = 1;
+}
+
+message DeleteBookingResponse {
+  bool success = 1;
+}
+
+message ListBookingsRequest {
+  string user_id = 1;
+  string filter = 2;
+  string sort = 3;
+  int32 page = 4;
+  int32 page_size = 5;
+}
+
+message ListBookingsResponse {
+  repeated Booking bookings = 1;
+  int32 total_pages = 2;
+  int32 current_page = 3;
+}
+
+message Booking {
+  string booking_id = 1;
+  string user_id = 2;
+  string spa_service = 3;
+  string booking_time = 4;
+}
